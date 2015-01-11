@@ -1,0 +1,39 @@
+<section class="step">
+    <h3 class="text-center"> Step 3 </h3>
+    <div class="panel step-panel" ng-show="vm.state==='show'">
+        <div class="panel-body text-center">
+
+            <h4 ng-show="!start">
+                I am going to name three objects. When I am finished, I want you to repeat them. Remember what they are because I am going to ask you to name them again in a few minutes. Each object will screen for 10 seconds.
+            </h4>
+
+            <a class="btn btn-primary" ng-click="vm.show(); start=true;" ng-show="!start">Ok</a>
+            <h1 class="text-center" ng-show="start"> {{vm.nouns[vm.index]}} </h1>
+
+        </div>
+    </div>
+
+    <div class="panel step-panel" ng-show="vm.state==='ask'">
+        <div class="panel-body">
+
+            <div class="form-group">
+                <label>Noun #1</label>
+                <input type="text" class="form-control" ng-model="vm.answer.noun1">
+            </div>
+
+            <div class="form-group">
+                <label>Noun #2</label>
+                <input type="text" class="form-control" ng-model="vm.answer.noun2">
+            </div>
+
+            <div class="form-group">
+                <label>Noun #3</label>
+                <input type="text" class="form-control" ng-model="vm.answer.noun3">
+            </div>
+
+        </div>
+    </div>
+
+    <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-show="vm.state==='ask'">NEXT</a>
+
+</section>

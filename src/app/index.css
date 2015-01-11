@@ -1,0 +1,35 @@
+html {
+    background-color: #f7f7f7;
+    position: relative;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+body {
+    background-color: transparent;
+    color: #656565;
+    font-size: 13px;
+    overflow-x: hidden;
+}
+/* NAV BAR */
+
+.navbar-color {
+    background-color: #3b5998;
+    margin-bottom: 0px;
+}
+.navbar-color .navbar-brand {
+    color: #fff;
+}
+
+.m-t-m {
+	margin-top: 20px;
+}
+
+.step {
+	width: 40%;
+	margin: 30px auto;
+}
+
+.step-panel {
+	border: 0;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
+}

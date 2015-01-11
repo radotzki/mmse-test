@@ -1,0 +1,87 @@
+<!doctype html>
+<html class="no-js" ng-app="mmse">
+
+    <head>
+        <meta charset="utf-8">
+        <title>mmse</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <!-- build:css({.tmp,src}) styles/vendor.css -->
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
+
+
+        <!-- build:css({.tmp,src}) styles/app.css -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="app/index.css">
+        <link rel="stylesheet" href="app/landing/landing.css">
+        <!-- endinject -->
+        <!-- endbuild -->
+
+        <!-- build:js scripts/modernizr.js -->
+        <script src="../bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+    </head>
+
+    <body>
+        <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+        <div class="navbar navbar-default navbar-static-top navbar-color">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="#/landing" class="navbar-brand">MMSE test</a>
+                </div>
+            </div>
+        </div>
+        <div ui-view></div>
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-animate/angular-animate.js"></script>
+        <script src="../bower_components/angular-touch/angular-touch.js"></script>
+        <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,src}) scripts/app.js -->
+        <!-- inject:js -->
+        <script src="app/storage/_storgae.module.js"></script>
+        <script src="app/storage/service.js"></script>
+        <script src="app/step4/_step4.module.js"></script>
+        <script src="app/step4/step4.js"></script>
+        <script src="app/step4/config.route.js"></script>
+        <script src="app/step3/_step3.module.js"></script>
+        <script src="app/step3/step3.js"></script>
+        <script src="app/step3/config.route.js"></script>
+        <script src="app/step2/_step2.module.js"></script>
+        <script src="app/step2/step2.js"></script>
+        <script src="app/step2/config.route.js"></script>
+        <script src="app/step1/_step1.module.js"></script>
+        <script src="app/step1/step1.js"></script>
+        <script src="app/step1/config.route.js"></script>
+        <script src="app/landing/_landing.module.js"></script>
+        <script src="app/landing/landing.js"></script>
+        <script src="app/landing/config.route.js"></script>
+        <script src="app/core/_core.module.js"></script>
+        <script src="app/core/config.js"></script>
+        <script src="app/_app.module.js"></script>
+        <!-- endinject -->
+
+        <!-- inject:partials -->
+        <!-- angular templates will be automatically converted in js and inserted here -->
+        <!-- endinject -->
+        <!-- endbuild -->
+
+    </body>
+
+</html>
