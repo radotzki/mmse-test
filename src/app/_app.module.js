@@ -17,7 +17,8 @@
          'app.step1',
          'app.step2',
          'app.step3',
-         'app.step4'
+         'app.step4',
+         'app.step5'
          ]);
 
 })();

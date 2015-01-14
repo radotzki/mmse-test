@@ -1,22 +1,31 @@
 <section class="step">
     <h3 class="text-center"> Step 4 </h3>
     <div class="panel step-panel">
-        <div class="panel-body">
+        <div class="panel-body text-center">
 
-            <div class="form-group">
-                <label>What country are we in?</label>
-                <input type="text" class="form-control" ng-model="vm.answer.conutry">
-            </div>
+            <section ng-show="vm.img1">
+                <img ng-src="{{'assets/images/item' + vm.randomNum + '.jpg'}}" class="img-memory">
+                <div class="form-group">
+                    <label>What is this called?</label>
+                    <input type="text" class="form-control" ng-model="vm.answer.first">
+                </div>
+            </section>
 
-            <div class="form-group">
-                <label>What city/town are we in?</label>
-                <input type="text" class="form-control" ng-model="vm.answer.city">
-            </div>
+            <section ng-show="vm.img2">
+                <img ng-src="{{'assets/images/item' + (vm.randomNum + 1) % 10 + '.jpg'}}" class="img-memory">
+                <div class="form-group">
+                    <label>What is this called?</label>
+                    <input type="text" class="form-control" ng-model="vm.answer.second">
+                </div>
+            </section>
 
-            <div class="form-group">
-                <label>What floor are we on?</label>
-                <input type="number" class="form-control" ng-model="vm.answer.floor">
-            </div>
+            <section ng-show="vm.img3">
+                <img ng-src="{{'assets/images/item' + (vm.randomNum + 2) % 10 + '.jpg'}}" class="img-memory">
+                <div class="form-group">
+                    <label>What is this called?</label>
+                    <input type="text" class="form-control" ng-model="vm.answer.third">
+                </div>
+            </section>
 
         </div>
     </div>

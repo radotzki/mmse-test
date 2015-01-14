@@ -23,7 +23,6 @@
 
         function activate() {
             vm.state = $stateParams.state;
-            console.log($stateParams.state);
             if ($stateParams.state != 'show') {
                 vm.nouns = appStorage.getNouns($stateParams.id);
                 startTimer();
