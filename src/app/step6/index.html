@@ -1,13 +1,19 @@
 <section class="step">
-    <h3 class="text-center"> Step 5 </h3>
+    <h3 class="text-center"> Step 6 </h3>
     <div class="panel step-panel">
         <div class="panel-body form-inline text-center">
 
-            <h4>
-                Four and twenty five afternoon
-            </h4>
+            <div id="clock-container">
+                <svg id="clock" viewBox="0 0 100 100">
+                    <circle id="face" cx="50" cy="50" r="45" />
+                    <g id="hands">
+                        <rect id="hour" x="47.5" y="22.5" width="5" height="30" rx="3.5" ry="2.55"></rect>
+                        <rect id="min" x="48.5" y="12.5" width="3" height="40" rx="2" ry="2" />
+                    </g>
+                </svg>
+            </div>
 
-            <p style="margin-top: 30px">What is the time in the text above?</p>
+            <p style="margin-top: 30px">What is the time in the watch above?</p>
 
             <div class="form-group">
 
@@ -25,17 +31,6 @@
                     <option value="10">10</option>
                     <option value="11">11</option>
                     <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                    <option value="21">21</option>
-                    <option value="22">22</option>
-                    <option value="23">23</option>
                 </select>
             </div>
 
@@ -102,11 +97,6 @@
                     <option value="58">58</option>
                     <option value="59">59</option>
                 </select>
-            </div>
-
-            <div class="form-group" style="display: block; margin-top: 15px;">
-                <label>{{vm.decreasedNumber}} - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.decrease">
             </div>
 
         </div>

@@ -13,12 +13,14 @@
          * Feature areas
          */
          'app.landing',
+         'app.result',
          'app.storage',
          'app.step1',
          'app.step2',
          'app.step3',
          'app.step4',
-         'app.step5'
+         'app.step5',
+         'app.step6'
          ]);
 
 })();

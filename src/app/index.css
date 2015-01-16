@@ -19,22 +19,37 @@ body {
 .navbar-color .navbar-brand {
     color: #fff;
 }
-
 .m-t-m {
-	margin-top: 20px;
+    margin-top: 20px;
 }
-
 .step {
-	width: 40%;
-	margin: 30px auto;
+    width: 40%;
+    margin: 30px auto;
 }
-
 .step-panel {
-	border: 0;
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
+    border: 0;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
 }
-
 .img-memory {
     width: 400px;
     height: 400px;
 }
+#clock-container {
+    display: inline-block;
+    position: relative;
+    width: 20%;
+    vertical-align: middle;
+    overflow: hidden;
+}
+#face {
+    stroke-width: 2px;
+    stroke: #BDC2E4;
+    fill: #F7F7F7;
+}
+#hour,
+#min {
+    stroke-width: 1px;
+    fill: #333;
+    stroke: #BDC2E4;
+}
+

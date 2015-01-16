@@ -2,24 +2,28 @@
     'use strict';
 
     angular
-        .module('app.step2')
-        .controller('Step2', Step2);
+        .module('app.step6')
+        .controller('Step6', Step6);
 
     /* @ngInject */
-    function Step2($interval, $stateParams, $state, appStorage) {
+    function Step6($interval, $stateParams, $state, appStorage) {
         /*jshint validthis: true */
         var vm = this;
         var timer;
         var timerCount;
         vm.answer;
-        vm.decreasedNumber;
+        vm.randomMin;
+        vm.randomHour;
         vm.next = next;
 
         activate();
 
         function activate() {
             startTimer();
-            vm.decreasedNumber = appStorage.getDecreased();
+            vm.randomMin = Math.floor((Math.random() * 55));
+            vm.randomHour = Math.floor((Math.random() * 11));
+            setTime(min, 6 * vm.randomMin)
+            setTime(hour, 30 * (vm.randomHour % 12) + vm.randomMin / 2)
         }
 
         function startTimer() {
@@ -27,6 +31,10 @@
             timer = $interval(function () {
                 timerCount++;
             }, 1000);
+        }
+
+        function setTime(el, deg) {
+            el.setAttribute('transform', 'rotate(' + deg + ' 50 50)')
         }
 
         function next() {
@@ -38,19 +46,16 @@
                 score: calculateScore()
             };
 
-            appStorage.saveDecreased(vm.decrease);
-            appStorage.saveStep($stateParams.id, step, 2);
-            $state.go('step3', {
-                id: $stateParams.id,
-                state: 'show'
+            appStorage.saveStep($stateParams.id, step, 6);
+            $state.go('result', {
+                id: $stateParams.id
             });
         }
 
         function calculateScore() {
             console.log("time in seconds:", timerCount);
-            console.log("answer:", vm.answer.conutry, vm.answer.city, vm.answer.floor);
-            console.log("correct-answer:", 'Israel', 'Tel Aviv', '2');
-            console.log(vm.decreasedNumber + " - 7 = ", vm.decrease);
+            console.log("answer:", vm.answer.hour, vm.answer.minute);
+            console.log("correct-answer:", vm.randomHour, vm.randomMin);
             return 0;
         }
 

@@ -19,12 +19,15 @@
         vm.img1 = true;
         vm.img2 = false;
         vm.img3 = false;
+        vm.finalCalc = false;
+        vm.decreasedNumber;
         vm.next = next;
 
         activate();
 
         function activate() {
             startTimer();
+            vm.decreasedNumber = appStorage.getDecreased();
             vm.randomNum = Math.floor((Math.random() * 10));
             chosenImages.push(imgDefinition[vm.randomNum], imgDefinition[(vm.randomNum + 1) % 10], imgDefinition[(vm.randomNum + 2) % 10]);
         }
@@ -43,6 +46,9 @@
             } else if (vm.img2) {
                 vm.img2 = false;
                 vm.img3 = true;
+            } else if (vm.img3) {
+                vm.img3 = false;
+                vm.finalCalc = true;
             } else {
                 $interval.cancel(timer);
                 timer = undefined;
@@ -52,6 +58,7 @@
                     score: calculateScore()
                 };
 
+                appStorage.saveDecreased(vm.decrease);
                 appStorage.saveStep($stateParams.id, step, 4);
                 $state.go('step3', {
                     id: $stateParams.id,
@@ -61,7 +68,10 @@
         }
 
         function calculateScore() {
-            console.log(timerCount, chosenImages, vm.answer.first, vm.answer.second, vm.answer.third);
+            console.log("time in seconds:", timerCount);
+            console.log("answer:", vm.answer.first, vm.answer.second, vm.answer.third);
+            console.log("correct-answer:", chosenImages[0], chosenImages[1], chosenImages[2]);
+            console.log(vm.decreasedNumber + " - 7 = ", vm.decrease);
             return 0;
         }
 
