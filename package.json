@@ -2,7 +2,7 @@
   "name": "mmse",
   "version": "0.0.0",
   "dependencies": {
-    "lodash": "^2.4.1"
+    "node-static": "^0.7.6"
   },
   "devDependencies": {
     "gulp": "~3.8.10",
