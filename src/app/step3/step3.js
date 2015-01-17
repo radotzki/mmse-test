@@ -45,7 +45,7 @@
                 } else {
                     vm.index++;
                 }
-            }, 1000 * 2);
+            }, 1000 * 10);
         }
 
         function startTimer() {

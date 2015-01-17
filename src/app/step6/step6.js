@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     angular
@@ -21,20 +21,32 @@
         function activate() {
             startTimer();
             vm.randomMin = Math.floor((Math.random() * 55));
-            vm.randomHour = Math.floor((Math.random() * 11));
-            setTime(min, 6 * vm.randomMin)
-            setTime(hour, 30 * (vm.randomHour % 12) + vm.randomMin / 2)
+            vm.randomHour = Math.floor((Math.random() * 10)) + 1;
+            setTime();
         }
 
         function startTimer() {
             timerCount = 0;;
-            timer = $interval(function () {
+            timer = $interval(function() {
                 timerCount++;
             }, 1000);
         }
 
-        function setTime(el, deg) {
-            el.setAttribute('transform', 'rotate(' + deg + ' 50 50)')
+        function setTime() {
+            var hdegree = vm.randomHour * 30 + (vm.randomMin / 2);
+            var hrotate = "rotate(" + hdegree + "deg)";
+            var mdegree = vm.randomMin * 6;
+            var mrotate = "rotate(" + mdegree + "deg)";
+
+            $("#hour").css({
+                "-moz-transform": hrotate,
+                "-webkit-transform": hrotate
+            });
+
+            $("#min").css({
+                "-moz-transform": mrotate,
+                "-webkit-transform": mrotate
+            });
         }
 
         function next() {

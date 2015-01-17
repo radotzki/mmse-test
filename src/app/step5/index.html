@@ -1,7 +1,6 @@
 <section class="step">
-    <h3 class="text-center"> Step 5 </h3>
     <div class="panel step-panel">
-        <div class="panel-body form-inline text-center">
+        <form name="myForm" class="panel-body text-center form-inline" novalidate>
 
             <h4>
                 Four and twenty five afternoon
@@ -10,8 +9,7 @@
             <p style="margin-top: 30px">What is the time in the text above?</p>
 
             <div class="form-group">
-
-                <select class="form-control" ng-model="vm.answer.hour">
+                <select class="form-control" ng-model="vm.answer.hour" required>
                     <option value="00">00</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -40,7 +38,7 @@
             </div>
 
             <div class="form-group">
-                <select class="form-control" ng-model="vm.answer.minute">
+                <select class="form-control" ng-model="vm.answer.minute" required>
                     <option value="00">00</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -104,14 +102,15 @@
                 </select>
             </div>
 
-            <div class="form-group" style="display: block; margin-top: 15px;">
+            <div class="form-group" style="display: block; margin: 15px auto;">
                 <label>{{vm.decreasedNumber}} - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.decrease">
+                <input type="number" class="form-control" ng-model="vm.decrease" required>
             </div>
 
-        </div>
+            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>
+        </form>
     </div>
 
-    <a class="btn btn-primary btn-block" ng-click="vm.next()">NEXT</a>
+    
 
 </section>

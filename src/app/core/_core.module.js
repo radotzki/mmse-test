@@ -7,12 +7,8 @@
          */
         'ngSanitize',
         /*
-         * Our reusable cross app code modules
-         */
-         // 'blocks.logger', 'blocks.exception',
-        /*
          * 3rd Party modules
          */
-        'ui.router', 'ui.bootstrap'
+        'ui.router', 'ui.bootstrap', 'firebase'
     ]);
 })();

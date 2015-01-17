@@ -1,5 +1,4 @@
 <section class="step">
-    <h3 class="text-center"> Step 3 </h3>
     <div class="panel step-panel" ng-show="vm.state==='show'">
         <div class="panel-body text-center">
 
@@ -14,31 +13,32 @@
     </div>
 
     <div class="panel step-panel" ng-show="vm.state==='ask'">
-        <div class="panel-body">
+        <form name="myForm" class="panel-body" novalidate>
 
             <div class="form-group">
                 <label>Noun #1</label>
-                <input type="text" class="form-control" ng-model="vm.answer.noun1">
+                <input type="text" class="form-control" ng-model="vm.answer.noun1" required>
             </div>
 
             <div class="form-group">
                 <label>Noun #2</label>
-                <input type="text" class="form-control" ng-model="vm.answer.noun2">
+                <input type="text" class="form-control" ng-model="vm.answer.noun2" required>
             </div>
 
             <div class="form-group">
                 <label>Noun #3</label>
-                <input type="text" class="form-control" ng-model="vm.answer.noun3">
+                <input type="text" class="form-control" ng-model="vm.answer.noun3" required>
             </div>
 
             <div class="form-group">
                 <label>{{vm.decreasedNumber}} - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.decrease">
+                <input type="number" class="form-control" ng-model="vm.decrease" required>
             </div>
 
-        </div>
+            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>
+        </form>
     </div>
 
-    <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-show="vm.state==='ask'">NEXT</a>
+    
 
 </section>

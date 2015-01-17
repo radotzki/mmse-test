@@ -1,7 +1,6 @@
 <section class="step">
-    <h3 class="text-center"> Step 4 </h3>
     <div class="panel step-panel">
-        <div class="panel-body text-center">
+        <form name="myForm" class="panel-body text-center" novalidate>
 
             <section ng-show="vm.img1">
                 <img ng-src="{{'assets/images/item' + vm.randomNum + '.jpg'}}" class="img-memory">
@@ -34,9 +33,10 @@
                 </div>
             </section>
 
-        </div>
+            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>
+        </form>
     </div>
 
-    <a class="btn btn-primary btn-block" ng-click="vm.next()">NEXT</a>
+    
 
 </section>

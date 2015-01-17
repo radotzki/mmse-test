@@ -1,23 +1,17 @@
-<section class="step">
-    <h3 class="text-center"> Step 6 </h3>
-    <div class="panel step-panel">
-        <div class="panel-body form-inline text-center">
+<section class="step-6">
+    <div class="panel step-panel" style="min-width: 700px">
+        <form name="myForm" class="panel-body text-center form-inline" novalidate>
 
-            <div id="clock-container">
-                <svg id="clock" viewBox="0 0 100 100">
-                    <circle id="face" cx="50" cy="50" r="45" />
-                    <g id="hands">
-                        <rect id="hour" x="47.5" y="22.5" width="5" height="30" rx="3.5" ry="2.55"></rect>
-                        <rect id="min" x="48.5" y="12.5" width="3" height="40" rx="2" ry="2" />
-                    </g>
-                </svg>
-            </div>
+            <ul id="clock">
+                <li id="hour"></li>
+                <li id="min"></li>
+            </ul>
 
             <p style="margin-top: 30px">What is the time in the watch above?</p>
 
             <div class="form-group">
 
-                <select class="form-control" ng-model="vm.answer.hour">
+                <select class="form-control" ng-model="vm.answer.hour" required>
                     <option value="00">00</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -35,7 +29,7 @@
             </div>
 
             <div class="form-group">
-                <select class="form-control" ng-model="vm.answer.minute">
+                <select class="form-control" ng-model="vm.answer.minute" required>
                     <option value="00">00</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -99,9 +93,10 @@
                 </select>
             </div>
 
-        </div>
+            <a class="btn btn-primary btn-block m-t-m" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>
+        </form>
     </div>
 
-    <a class="btn btn-primary btn-block" ng-click="vm.next()">NEXT</a>
+    
 
 </section>

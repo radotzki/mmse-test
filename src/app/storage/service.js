@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     angular
@@ -6,8 +6,10 @@
         .factory('appStorage', appStorage);
 
     /* @ngInject */
-    function appStorage() {
+    function appStorage($firebase) {
         var service = {
+            getAllUsers: getAllUsers,
+            saveUserToDB: saveUserToDB,
             saveNewUser: saveNewUser,
             getUser: getUser,
             saveStep: saveStep,
@@ -18,6 +20,18 @@
         };
         return service;
 
+        function getAllUsers() {
+            var ref = new Firebase("https://mmse-test.firebaseio.com/");
+            var sync = $firebase(ref);
+            return sync.$asArray().$loaded();
+        }
+
+        function saveUserToDB (user) {
+            var ref = new Firebase("https://mmse-test.firebaseio.com/");
+            var sync = $firebase(ref);
+            sync.$push(user);
+        }
+
         function saveNewUser(id) {
             var user = {
                 id: id,
@@ -27,33 +41,31 @@
             localStorage.setItem(id, JSON.stringify(user));
         }
 
-        function getUser (id) {
+        function getUser(id) {
             return JSON.parse(localStorage.getItem(id));
         }
 
         function saveStep(id, newStep, stepNum) {
-        	var user = JSON.parse(localStorage.getItem(id));
-        	user[stepNum] = newStep;
-        	localStorage.setItem(id, JSON.stringify(user));
+            var user = JSON.parse(localStorage.getItem(id));
+            user[stepNum] = newStep;
+            localStorage.setItem(id, JSON.stringify(user));
         }
 
-        function saveNouns (nouns) {
-            sessionStorage.setItem('nouns', JSON.stringify(nouns));   
+        function saveNouns(nouns) {
+            localStorage.setItem('nouns', JSON.stringify(nouns));
         }
 
-        function getNouns () {
-            var nouns = JSON.parse(sessionStorage.getItem('nouns'));
-            sessionStorage.removeItem('nouns');
+        function getNouns() {
+            var nouns = JSON.parse(localStorage.getItem('nouns'));
             return nouns;
         }
 
-        function saveDecreased (number) {
-            sessionStorage.setItem('decreasedNumber', number);   
+        function saveDecreased(number) {
+            localStorage.setItem('decreasedNumber', number);
         }
 
-        function getDecreased () {
-            var num = sessionStorage.getItem('decreasedNumber');
-            sessionStorage.removeItem('decreasedNumber');
+        function getDecreased() {
+            var num = localStorage.getItem('decreasedNumber');
             return num;
         }
 

@@ -40,6 +40,7 @@
 
             appStorage.saveDecreased(vm.decrease);
             appStorage.saveStep($stateParams.id, step, 2);
+
             $state.go('step3', {
                 id: $stateParams.id,
                 state: 'show'

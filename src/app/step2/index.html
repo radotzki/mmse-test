@@ -1,31 +1,31 @@
 <section class="step">
-    <h3 class="text-center"> Step 2 </h3>
     <div class="panel step-panel">
-        <div class="panel-body">
+        <form name="myForm" class="panel-body" novalidate>
 
             <div class="form-group">
                 <label>What country are we in?</label>
-                <input type="text" class="form-control" ng-model="vm.answer.conutry">
+                <input type="text" class="form-control" ng-model="vm.answer.conutry" required>
             </div>
 
             <div class="form-group">
                 <label>What city/town are we in?</label>
-                <input type="text" class="form-control" ng-model="vm.answer.city">
+                <input type="text" class="form-control" ng-model="vm.answer.city" required>
             </div>
 
             <div class="form-group">
                 <label>What floor are we on?</label>
-                <input type="number" class="form-control" ng-model="vm.answer.floor">
+                <input type="number" class="form-control" ng-model="vm.answer.floor" required>
             </div>
 
             <div class="form-group">
                 <label>{{vm.decreasedNumber}} - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.decrease">
+                <input type="number" class="form-control" ng-model="vm.decrease" required>
             </div>
 
-        </div>
+            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>
+        </form>
     </div>
 
-    <a class="btn btn-primary btn-block" ng-click="vm.next()">NEXT</a>
+    
 
 </section>

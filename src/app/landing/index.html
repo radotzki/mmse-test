@@ -1,12 +1,18 @@
 <div class="jumbotron">
     <div class="container text-center">
         <h1> Welcome to mmse test </h1>
-        <h3> enter your id and click the button to start the test </h3>
 
         <div class="form-group m-t-m">
             <input type="number" placeholder="Enter your id" class="form-control" style="width: 30%; margin: auto" ng-model="vm.userId">
         </div>
-        
-        <a class="btn btn-primary " ng-click="vm.start()">START</a>
+
+        <a class="btn btn-primary " ng-click="vm.start()">START TEST</a>
+        <a class="btn btn-info " ng-click="vm.history()">SHOW HISTORY</a>
     </div>
+
+    <section class="text-center m-t-m" ng-if="vm.previousTests.length">
+        <h4 ng-repeat="test in vm.previousTests | orderBy: '-startTime'">
+         	Score: {{ test.totalScore }} | Time: {{ test.totalTime }} seconds | from {{ test.startTime | date: 'medium' }} 
+    	</h4>
+    </section>
 </div>
