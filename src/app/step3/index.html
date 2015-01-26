@@ -14,25 +14,41 @@
 
     <div class="panel step-panel" ng-show="vm.state==='ask'">
         <form name="myForm" class="panel-body" novalidate>
+            <a class="btn btn-primary btn-block" ng-click="vm.enableSection('noun1')" style="margin-bottom:20px;">Start</a>
 
             <div class="form-group">
                 <label>Noun #1</label>
-                <input type="text" class="form-control" ng-model="vm.answer.noun1" required>
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.data['noun1'].value" ng-disabled="vm.data['noun1'].disabled" required>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="vm.enableSection('noun2')" type="button" ng-disabled="vm.data['noun1'].disabled">Next</button>
+                    </span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Noun #2</label>
-                <input type="text" class="form-control" ng-model="vm.answer.noun2" required>
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.data['noun2'].value" ng-disabled="vm.data['noun2'].disabled" required>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="vm.enableSection('noun3')" type="button" ng-disabled="vm.data['noun2'].disabled">Next</button>
+                    </span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Noun #3</label>
-                <input type="text" class="form-control" ng-model="vm.answer.noun3" required>
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.data['noun3'].value" ng-disabled="vm.data['noun3'].disabled" required>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="vm.enableSection('calculation')" type="button" ng-disabled="vm.data['noun3'].disabled">Next</button>
+                    </span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>{{vm.decreasedNumber}} - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.decrease" required>
+                <input type="number" class="form-control" ng-model="vm.data['calculation'].value" ng-disabled="vm.data['calculation'].disabled" required>
             </div>
 
             <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>

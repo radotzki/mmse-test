@@ -16,7 +16,11 @@
             saveNouns: saveNouns,
             getNouns: getNouns,
             saveDecreased: saveDecreased,
-            getDecreased: getDecreased
+            getDecreased: getDecreased,
+            getCurrentDate: getCurrentDate,
+            getCurrentTime: getCurrentTime,
+            getScoreForCalc: getScoreForCalc,
+            getStepData: getStepData
         };
         return service;
 
@@ -65,9 +69,56 @@
         }
 
         function getDecreased() {
+            return 93;
             var num = localStorage.getItem('decreasedNumber');
             return num;
         }
 
+        function getCurrentDate(){
+            var date = new Date();
+            return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+        }
+
+        function getCurrentTime(){
+            var date = new Date();
+            return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        }
+
+        function getScoreForCalc(calcJson){
+            if (!calcJson.isAfterTime)
+            {
+                var chosen = calcJson.value;
+                var realCalcResult = 93;
+
+                if (chosen == realCalcResult)
+                {
+                    calcJson.score++;
+                }
+                else if (realCalcResult + 1 == chosen || realCalcResult - 1 == chosen)
+                {
+                    calcJson.score += 0.5;
+                }
+                else if (realCalcResult + 2 == chosen || realCalcResult - 2 == chosen)
+                {
+                    calcJson.score += 0.25;
+                }
+            }
+
+            //totalTime += calcJson.length;
+            return calcJson.score;
+        }
+
+        function getStepData(sectionsNames, stepData, id, totalTime, totalScore){
+            var sections = {};
+            for (var i = 0; i < sectionsNames.length; i++) {
+                var currentSection = stepData[sectionsNames[i]];
+                sections[i] = {time:currentSection.length, score:currentSection.score};
+            };
+
+            var step = {date:getCurrentDate(), time:getCurrentTime(), id:id, 
+                totalScore:totalScore, totalTime:totalTime, sections:sections};
+
+            return step;
+        }
     }
 })();

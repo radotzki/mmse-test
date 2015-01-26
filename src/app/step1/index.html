@@ -2,27 +2,55 @@
     <div class="panel step-panel">
         <form name="myForm" class="panel-body" novalidate>
 
+            <a class="btn btn-primary btn-block" ng-click="vm.enableSection('day')" style="margin-bottom:20px;">Start</a>
+
             <div class="form-group">
-                <label>What is the date now?</label>
-                <input type="date" class="form-control" ng-model="vm.date" required>
+                <label>What day of the week is this?</label>
+                <div class="form-inline">
+                    <select class="form-control" ng-model="vm.data['day'].value" style="width:89%" required ng-disabled="vm.data['day'].disabled">
+                        <option ng-repeat="day in vm.days" value="{{day}}">{{day}}</option>
+                    </select>
+                    <button class="btn btn-default" ng-click="vm.enableSection('month')" type="button" ng-disabled="vm.data['day'].disabled">Next</button>
+                </div>
+                
+                
             </div>
 
             <div class="form-group">
+                <label>What month is this?</label>
+                <div class="form-inline">
+                    <select class="form-control" ng-model="vm.data['month'].value" style="width:89%" required ng-disabled="vm.data['month'].disabled">
+                        <option ng-repeat="month in vm.months" value="{{month}}">{{month}}</option>
+                    </select>
+                    <button class="btn btn-default" ng-click="vm.enableSection('year')" type="button" ng-disabled="vm.data['month'].disabled">Next</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>What year is this?</label>
+                <div class="form-inline">
+                    <select class="form-control" ng-model="vm.data['year'].value" style="width:89%"  ng-options="n for n in [] | range:1950:2050" required ng-disabled="vm.data['year'].disabled"/>
+                    <button class="btn btn-default" ng-click="vm.enableSection('season')" type="button" ng-disabled="vm.data['year'].disabled">Next</button>
+                </div>
+            </div>
+
+
+            <div class="form-group">
                 <label>Which season is this?</label>
-                <select class="form-control" ng-model="vm.season" required>
-                    <option value="winter">Winter</option>
-                    <option value="autumn">Autumn</option>
-                    <option value="summer">Summer</option>
-                    <option value="spring">Spring</option>
-                </select>
+                <div class="form-inline"> 
+                    <select class="form-control" ng-model="vm.data['season'].value" style="width:89%"  required ng-disabled="vm.data['season'].disabled">
+                        <option ng-repeat="season in vm.seasons" value="{{season}}">{{season}}</option>
+                    </select>
+                    <button class="btn btn-default" ng-click="vm.enableSection('calculation')"  ng-disabled="vm.data['season'].disabled" type="button">Next</button>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>100 - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.decrease" required>
+                <input type="number" class="form-control" ng-model="vm.data['calculation'].value" required ng-disabled="vm.data['calculation'].disabled">
             </div>
 
-            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>
+            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">Next</a>
         </form>
     </div>
 

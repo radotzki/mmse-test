@@ -2,24 +2,40 @@
     <div class="panel step-panel">
         <form name="myForm" class="panel-body" novalidate>
 
+            <a class="btn btn-primary btn-block" ng-click="vm.enableSection('country')" style="margin-bottom:20px;">Start</a>
+
             <div class="form-group">
                 <label>What country are we in?</label>
-                <input type="text" class="form-control" ng-model="vm.answer.conutry" required>
+                <div class="form-inline">
+                    <input type="text" class="form-control" ng-model="vm.answer.conutry" required>
+                    <button class="btn btn-default" ng-click="vm.enableSection('month')" type="button" ng-disabled="vm.data['day'].disabled">Next</button>
+                </div>
             </div>
+
+
 
             <div class="form-group">
                 <label>What city/town are we in?</label>
-                <input type="text" class="form-control" ng-model="vm.answer.city" required>
+                <div class="form-inline">
+                    <input type="text" class="form-control" ng-model="vm.answer.city" required>
+                    <button class="btn btn-default" ng-click="vm.enableSection('month')" type="button" ng-disabled="vm.data['day'].disabled">Next</button>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>What floor are we on?</label>
-                <input type="number" class="form-control" ng-model="vm.answer.floor" required>
+                <div class="form-inline">
+                    <input type="number" class="form-control" ng-model="vm.answer.floor" required>
+                    <button class="btn btn-default" ng-click="vm.enableSection('month')" type="button" ng-disabled="vm.data['day'].disabled">Next</button>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>{{vm.decreasedNumber}} - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.decrease" required>
+                <div class="form-inline">
+                    <input type="number" class="form-control" ng-model="vm.decrease" required>
+                    <button class="btn btn-default" ng-click="vm.enableSection('month')" type="button" ng-disabled="vm.data['day'].disabled">Next</button>
+                </div>
             </div>
 
             <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>
