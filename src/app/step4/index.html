@@ -2,34 +2,34 @@
     <div class="panel step-panel">
         <form name="myForm" class="panel-body text-center" novalidate>
 
-            <section ng-show="vm.img1">
+            <section ng-show="vm.data[0].shown">
                 <img ng-src="{{'assets/images/item' + vm.randomNum + '.jpg'}}" class="img-memory">
                 <div class="form-group">
                     <label>What is this called?</label>
-                    <input type="text" class="form-control" ng-model="vm.answer.first">
+                    <input type="text" class="form-control" ng-model="vm.data[0].value">
                 </div>
             </section>
 
-            <section ng-show="vm.img2">
+            <section ng-show="vm.data[1].shown">
                 <img ng-src="{{'assets/images/item' + (vm.randomNum + 1) % 10 + '.jpg'}}" class="img-memory">
                 <div class="form-group">
                     <label>What is this called?</label>
-                    <input type="text" class="form-control" ng-model="vm.answer.second">
+                    <input type="text" class="form-control" ng-model="vm.data[1].value">
                 </div>
             </section>
 
-            <section ng-show="vm.img3">
+            <section ng-show="vm.data[2].shown">
                 <img ng-src="{{'assets/images/item' + (vm.randomNum + 2) % 10 + '.jpg'}}" class="img-memory">
                 <div class="form-group">
                     <label>What is this called?</label>
-                    <input type="text" class="form-control" ng-model="vm.answer.third">
+                    <input type="text" class="form-control" ng-model="vm.data[2].value">
                 </div>
             </section>
 
-            <section ng-show="vm.finalCalc">
+            <section ng-show="vm.data[3].shown">
                 <div class="form-group">
                     <label>{{vm.decreasedNumber}} - 7 = </label>
-                    <input type="number" class="form-control" ng-model="vm.decrease">
+                    <input type="number" class="form-control" ng-model="vm.data[3].value">
                 </div>
             </section>
 

@@ -6,7 +6,7 @@
         .controller('Step1', Step1);
 
     /* @ngInject */
-    function Step1($interval, $stateParams, $state, appStorage) {
+    function Step1($interval, $stateParams, $state, appStorage, appHelper) {
         /*jshint validthis: true */
         var vm = this;
         vm.next = next;
@@ -14,111 +14,117 @@
 
         vm.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         vm.days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-        vm.seasons = ['Winter','Autumn','Summer','Spring'];
-        vm.sections = ['day','month','year','season','calculation'];
-        
-        var totalTime = 0;
+        vm.seasons = ['Winter','Fall','Summer','Spring'];
+        var sectionsNum = 5;
+        vm.sections = {
+            day: {index : 0},
+            month: {index : 1},
+            year: {index : 2},
+            season: {index : 3},
+            calc: {index : 4}
+        }
 
-        vm.data = {};
-        for (var i = 0; i < vm.sections.length; i++) {
-            vm.data[vm.sections[i]] = {disabled:true, length:0, score:0};
-        };
+        var totalTime = 0;
 
         activate();
 
         function activate() {
-            //startTimer();
+            vm.data = appHelper.initData(sectionsNum);
         }
 
-        function startTimer(name) {
-            var timer = $interval(function () {
-                //vm.timerCount++;
-                vm.data[name].length++;
-            }, 1000);
-
-            vm.data[name].timer = timer;
+        function enableSection(index){
+            appHelper.enableSection(index, vm.data);
         }
+
+        // function initData(sectionsNum)
+        // {
+        //     var data = {};
+        //     for (var i = 0; i < sectionsNum; i++) {
+        //         data[i] = {disabled:false, length:0, score:0, shown:false};
+        //     };
+        //     return data;
+        // }
+
+        // function startTimer(index, section) {
+        //     var timer = $interval(function () {
+        //         section.length++;
+        //     }, 1000);
+
+        //     section.timer = timer;
+        // }
+
+        // function enableSection(index, data){
+        //     if (index != 0)
+        //     {
+        //         $interval.cancel(data[index - 1].timer);                
+        //         data[index - 1].timer = undefined;
+        //         data[index- 1].disabled = true;
+        //     }
+
+        //     data[index].shown = true;
+        //     startTimer(index, data[index]);
+        // };
 
         function next() {
-            $interval.cancel(vm.data['calculation'].timer);
-            vm.data['calculation'].timer = undefined;
+            // Cancel calc timer
+            $interval.cancel(vm.data[vm.sections.calc.index].timer);
+            vm.data[vm.sections.calc.index].timer = undefined;
 
-            var sections = {};
             var totalScore = calculateScore();
-            for (var i = 0; i < vm.sections.length; i++) {
-                var currentSection = vm.data[vm.sections[i]];
-                sections[i] = {time:currentSection.length, score:currentSection.score};
-            };
+            var step = appHelper.getStepData(sectionsNum, vm.data, $stateParams.id, totalTime, totalScore);
 
-            var step = {date:appStorage.getCurrentDate(), time:appStorage.getCurrentTime(), id:$stateParams.id, totalScore:totalScore, totalTime:totalTime, sections:sections};
-
-            appStorage.saveDecreased(vm.data['calculation'].value);
+            appStorage.saveDecreased(vm.data[vm.sections.calc.index].value);
             appStorage.saveStep($stateParams.id, step, 1);
             $state.go('step2', {
                 id: $stateParams.id
             });
         }
 
-        function enableSection(name){
-            var index = vm.sections.indexOf(name);
-            if (index != 0)
+
+        function getScoreForSection(index, realValue, sectionArr)
+        {
+            var chosen = vm.data[index].value;
+            var indexOfChosen = sectionArr.indexOf(chosen);
+
+            // Correct answer
+            if (realValue == indexOfChosen)
             {
-                var before = vm.sections[index - 1];
-                $interval.cancel(vm.data[before].timer);                
-                vm.data[before].timer = undefined;
-                if (vm.data[before].timer > 10)
-                {
-                    vm.data[before].isAfterTime = true;
-                }
+                vm.data[index].score++;
+            }
+            // Mistake by 1
+            else if (realValue + 1 == indexOfChosen || realValue - 1 == indexOfChosen || ((indexOfChosen == sectionArr.length - 1) && (realValue = 0)) 
+                || ((indexOfChosen == 0) && (realValue = sectionArr.length - 1)))
+            {
+                vm.data[index].score += 0.5;
             }
 
-            vm.data[name].disabled = false;
-            startTimer(name);
-        };
-
-        function getScoreForSection(sectionName, realValue, sectionArr){
-            if (!vm.data[sectionName].isAfterTime)
-            {
-                var chosen = vm.data[sectionName].value;
-                var indexOfChosen = sectionArr.indexOf(chosen);
-
-                if (realValue == indexOfChosen)
-                {
-                    vm.data[sectionName].score++;
-                }
-                else if (realValue + 1 == indexOfChosen || realValue - 1 == indexOfChosen)
-                {
-                    vm.data[sectionName].score += 0.5;
-                }
-            }
-
-            totalTime += vm.data[sectionName].length;
-            console.log("Score for " + sectionName + " ", vm.data[sectionName].score);
-            return vm.data[sectionName].score;
+            totalTime += vm.data[index].length;
+            return vm.data[index].score;
         }
 
-        function getScoreForYear(currentYear){
-            if (!vm.data['year'].isAfterTime)
-            {
-                var chosen = vm.data['year'].value;
+        function getScoreForYear(currentYear)
+        {
+            var chosen = vm.data[vm.sections.year.index].value;
 
-                if (currentYear == chosen)
-                {
-                    vm.data['year'].score++;
-                }
-                else if (currentYear + 1 == chosen || currentYear - 1 == chosen)
-                {
-                    vm.data['year'].score += 0.5;
-                }
-                else if (currentYear + 2 == chosen || currentYear - 2 == chosen)
-                {
-                    vm.data['year'].score += 0.25;
-                }
+            // Correct answer
+            if (currentYear == chosen)
+            {
+                vm.data[vm.sections.year.index].score++;
+            }
+            // Mistake by 1 year
+            else if (currentYear + 1 == chosen || currentYear - 1 == chosen)
+            {
+                vm.data[vm.sections.year.index].score += 0.5;
+            }
+            // Mistake by 2 years
+            else if (currentYear + 2 == chosen || currentYear - 2 == chosen)
+            {
+                vm.data[vm.sections.year.index].score += 0.25;
             }
 
-            totalTime += vm.data['year'].length;
+            totalTime += vm.data[vm.sections.year.index].length;
             
-            return vm.data['year'].score;
+            return vm.data[vm.sections.year.index].score;
         }
 
         function getCurrentSeason(month){
@@ -150,50 +156,46 @@
             return season;
         }
 
-        function getScoreForSeason(currentMonth){
-            if (!vm.data['season'].isAfterTime)
+        function getScoreForSeason(currentMonth)
+        {
+            var chosen = vm.data[vm.sections.season.index].value;
+            var realSeason = getCurrentSeason(currentMonth);
+
+            var indexOfChosen = vm.seasons.indexOf(chosen);
+            var indexOfReal = vm.seasons.indexOf(realSeason);
+
+            // Correct answer
+            if (indexOfChosen == indexOfReal)
             {
-                var chosen = vm.data['season'].value;
-                var realSeason = getCurrentSeason(currentMonth);
-
-                var indexOfChosen = vm.seasons[chosen];
-                var indexOfReal = vm.seasons[realSeason];
-
-                if (indexOfChosen == indexOfReal)
-                {
-                    vm.data['season'].score++;
-                }
-                else if (indexOfReal + 1 == chosen || indexOfReal - 1 == chosen)
-                {
-                    vm.data['season'].score += 0.25;
-                }
+                vm.data[vm.sections.season.index].score++;
+            }
+            // Mistake by 1 index
+            else if (indexOfReal + 1 == indexOfChosen || indexOfReal - 1 == indexOfChosen || (indexOfChosen == 3 && indexOfReal == 0)
+                || (indexOfChosen == 0 && indexOfReal == 3))
+            {
+                vm.data[vm.sections.season.index].score += 0.25;
             }
 
-            totalTime += vm.data['season'].length;
-            return vm.data['season'].score;
+            totalTime += vm.data[vm.sections.season.index].length;
+            return vm.data[vm.sections.season.index].score;
         }
 
         function calculateScore() {
-            for (var i = 0; i < vm.sections.length; i++) {
-                console.log("value:", vm.data[vm.sections[i]].value);
-                console.log("time:", vm.data[vm.sections[i]].length);
-            };
-
             var score = 0;
             var date = new Date();
             var currentDay = date.getDay();
             var currentMonth = date.getMonth();
             var currentYear = date.getFullYear();
             
-            score += getScoreForSection('day', currentDay, vm.days);
-            score += getScoreForSection('month', currentMonth, vm.months);
+            score += getScoreForSection(vm.sections.day.index, currentDay, vm.days);
+            score += getScoreForSection(vm.sections.month.index, currentMonth, vm.months);
             score += getScoreForYear(currentYear);
             score += getScoreForSeason(currentMonth);
-            score += appStorage.getScoreForCalc(vm.data['calculation']);
-            totalTime += vm.data['calculation'].length;
 
-            console.log("Score  ", score);
-        
+            vm.data[vm.sections.calc.index].score = appHelper.getScoreForCalc(vm.data[vm.sections.calc.index].value, 1);
+            score += vm.data[vm.sections.calc.index].score;
+            totalTime += vm.data[vm.sections.calc.index].length;
+
             return score;
         }
 

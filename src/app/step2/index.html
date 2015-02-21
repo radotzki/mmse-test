@@ -2,43 +2,49 @@
     <div class="panel step-panel">
         <form name="myForm" class="panel-body" novalidate>
 
-            <a class="btn btn-primary btn-block" ng-click="vm.enableSection('country')" style="margin-bottom:20px;">Start</a>
+            <a class="btn btn-primary btn-block" ng-click="vm.enableSection(0)">Start</a>
 
-            <div class="form-group">
+            <div class="form-group" ng-show="vm.data[0].shown" style="margin-top:20px;">
                 <label>What country are we in?</label>
                 <div class="form-inline">
-                    <input type="text" class="form-control" ng-model="vm.answer.conutry" required>
-                    <button class="btn btn-default" ng-click="vm.enableSection('month')" type="button" ng-disabled="vm.data['day'].disabled">Next</button>
+                    <select class="form-control" ng-model="vm.data[0].value" style="width:89%" required ng-disabled="vm.data[0].disabled">
+                        <option ng-repeat="country in vm.countries | orderBy" value="{{country}}">{{country}}</option>
+                    </select>
+                    <button class="btn btn-default" ng-click="vm.enableSection(1)" type="button" ng-disabled="vm.data[0].disabled">Next</button>
                 </div>
             </div>
 
-
-
-            <div class="form-group">
+            <div class="form-group" ng-show="vm.data[1].shown">
                 <label>What city/town are we in?</label>
                 <div class="form-inline">
-                    <input type="text" class="form-control" ng-model="vm.answer.city" required>
-                    <button class="btn btn-default" ng-click="vm.enableSection('month')" type="button" ng-disabled="vm.data['day'].disabled">Next</button>
+                    <select class="form-control" ng-model="vm.data[1].value" style="width:89%" required ng-disabled="vm.data[1].disabled">
+                        <option ng-repeat="city in vm.cities | orderBy" value="{{city}}">{{city}}</option>
+                    </select>
+                    <button class="btn btn-default" ng-click="vm.enableSection(2)" type="button" ng-disabled="vm.data[1].disabled">Next</button>
                 </div>
             </div>
 
-            <div class="form-group">
+             <div class="form-group" ng-show="vm.data[2].shown">
                 <label>What floor are we on?</label>
                 <div class="form-inline">
-                    <input type="number" class="form-control" ng-model="vm.answer.floor" required>
-                    <button class="btn btn-default" ng-click="vm.enableSection('month')" type="button" ng-disabled="vm.data['day'].disabled">Next</button>
+                    <select class="form-control" ng-model="vm.data[2].value" style="width:89%" required ng-disabled="vm.data[2].disabled">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    <button class="btn btn-default" ng-click="vm.enableSection(3); vm.showNext = true;" type="button" ng-disabled="vm.data[2].disabled">Next</button>
                 </div>
             </div>
 
-            <div class="form-group">
+           <div class="form-group" ng-show="vm.data[3].shown">
                 <label>{{vm.decreasedNumber}} - 7 = </label>
-                <div class="form-inline">
-                    <input type="number" class="form-control" ng-model="vm.decrease" required>
-                    <button class="btn btn-default" ng-click="vm.enableSection('month')" type="button" ng-disabled="vm.data['day'].disabled">Next</button>
-                </div>
+                <input type="number" class="form-control" ng-model="vm.data[3].value" ng-disabled="vm.data[3].disabled" required>
             </div>
 
-            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>
+            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-show="vm.showNext" ng-disabled="myForm.$invalid">NEXT</a>
         </form>
     </div>
 

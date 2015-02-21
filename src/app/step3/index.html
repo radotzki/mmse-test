@@ -3,7 +3,7 @@
         <div class="panel-body text-center">
 
             <h4 ng-show="!start">
-                I am going to name three objects. When I am finished, I want you to repeat them. Remember what they are because I am going to ask you to name them again in a few minutes. Each object will screen for 10 seconds.
+                I am going to name three objects. Remember what they are because I am going to ask you to name them again later. Each object will screen for 10 seconds.
             </h4>
 
             <a class="btn btn-primary" ng-click="vm.show(); start=true;" ng-show="!start">Ok</a>
@@ -14,44 +14,47 @@
 
     <div class="panel step-panel" ng-show="vm.state==='ask'">
         <form name="myForm" class="panel-body" novalidate>
-            <a class="btn btn-primary btn-block" ng-click="vm.enableSection('noun1')" style="margin-bottom:20px;">Start</a>
+            <h4 ng-show="!start">
+                Now repeat the three objects you saw before.
+            </h4>
+            <a class="btn btn-primary btn-block" ng-click="vm.enableSection(0)">Start</a>
 
-            <div class="form-group">
+            <div class="form-group" ng-show="vm.data[0].shown" style="margin-top:20px;">
                 <label>Noun #1</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="vm.data['noun1'].value" ng-disabled="vm.data['noun1'].disabled" required>
+                    <input type="text" class="form-control" ng-model="vm.data[0].value" ng-disabled="vm.data[0].disabled" required>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" ng-click="vm.enableSection('noun2')" type="button" ng-disabled="vm.data['noun1'].disabled">Next</button>
+                        <button class="btn btn-default" ng-click="vm.enableSection(1)" type="button" ng-disabled="vm.data[0].disabled">Next</button>
                     </span>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-show="vm.data[1].shown">
                 <label>Noun #2</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="vm.data['noun2'].value" ng-disabled="vm.data['noun2'].disabled" required>
+                    <input type="text" class="form-control" ng-model="vm.data[1].value" ng-disabled="vm.data[1].disabled" required>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" ng-click="vm.enableSection('noun3')" type="button" ng-disabled="vm.data['noun2'].disabled">Next</button>
+                        <button class="btn btn-default" ng-click="vm.enableSection(2)" type="button" ng-disabled="vm.data[1].disabled">Next</button>
                     </span>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-show="vm.data[2].shown">
                 <label>Noun #3</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="vm.data['noun3'].value" ng-disabled="vm.data['noun3'].disabled" required>
+                    <input type="text" class="form-control" ng-model="vm.data[2].value" ng-disabled="vm.data[2].disabled" required>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" ng-click="vm.enableSection('calculation')" type="button" ng-disabled="vm.data['noun3'].disabled">Next</button>
+                        <button class="btn btn-default" ng-click="vm.enableSection(3); vm.showNext = true;" type="button" ng-disabled="vm.data[2].disabled">Next</button>
                     </span>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-show="vm.data[3].shown">
                 <label>{{vm.decreasedNumber}} - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.data['calculation'].value" ng-disabled="vm.data['calculation'].disabled" required>
+                <input type="number" class="form-control" ng-model="vm.data[3].value" ng-disabled="vm.data[3].disabled" required>
             </div>
 
-            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-disabled="myForm.$invalid">NEXT</a>
+            <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-show="vm.showNext" ng-disabled="myForm.$invalid">NEXT</a>
         </form>
     </div>
 

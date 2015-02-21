@@ -40,8 +40,8 @@
             vm.user.totalTime = 0;
 
             for (var i = 1; i < 7; i++) {
-                vm.user.totalScore += vm.user[i].score;
-                vm.user.totalTime += vm.user[i].time;
+                vm.user.totalScore += vm.user.steps[i].totalScore;
+                vm.user.totalTime += vm.user.steps[i].totalTime;
             }
         }
 

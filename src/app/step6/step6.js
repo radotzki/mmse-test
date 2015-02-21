@@ -6,7 +6,7 @@
         .controller('Step6', Step6);
 
     /* @ngInject */
-    function Step6($interval, $stateParams, $state, appStorage) {
+    function Step6($interval, $stateParams, $state, appStorage, appHelper) {
         /*jshint validthis: true */
         var vm = this;
         var timer;
@@ -53,10 +53,13 @@
             $interval.cancel(timer);
             timer = undefined;
 
-            var step = {
-                time: timerCount,
-                score: calculateScore()
-            };
+            vm.data = {};
+            vm.data[0] = {score : calculateScore(), length: timerCount};
+            
+            // Max score for the time section is 2
+            vm.data[0].max = 2;
+
+            var step = appHelper.getStepData(1, vm.data, $stateParams.id, vm.data[0].length, vm.data[0].score);
 
             appStorage.saveStep($stateParams.id, step, 6);
             $state.go('result', {
@@ -65,10 +68,11 @@
         }
 
         function calculateScore() {
-            console.log("time in seconds:", timerCount);
-            console.log("answer:", vm.answer.hour, vm.answer.minute);
-            console.log("correct-answer:", vm.randomHour, vm.randomMin);
-            return 0;
+            var real = {};
+            real.hour = vm.randomHour;
+            real.minute = vm.randomMin;
+            var totalScore = appHelper.getTimeScore(real, vm.answer);
+            return totalScore;
         }
 
     }

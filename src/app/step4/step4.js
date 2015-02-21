@@ -6,73 +6,99 @@
         .controller('Step4', Step4);
 
     /* @ngInject */
-    function Step4($interval, $stateParams, $state, appStorage) {
+    function Step4($interval, $stateParams, $state, appStorage, appHelper) {
         /*jshint validthis: true */
         var vm = this;
-        var timer;
+        var timers = [];
         var timerCount;
         var imgDefinition = ['computer', 'closet', 'door', 'lamp', 'car', 'desk', 'glass', 'chair', 'watch', 'phone'];
         var chosenImages = [];
+        var totalTime = 0;
 
-        vm.answer;
         vm.randomNum;
-        vm.img1 = true;
-        vm.img2 = false;
-        vm.img3 = false;
-        vm.finalCalc = false;
-        vm.decreasedNumber;
         vm.next = next;
+        vm.currentIndex = 0;
+
+        var sectionsNum = 4;
+        vm.sections = {
+            first: {index : 0},
+            second: {index : 1},
+            third: {index : 2},
+            calc: {index : 3}
+        }
 
         activate();
 
         function activate() {
-            startTimer();
             vm.decreasedNumber = appStorage.getDecreased();
             vm.randomNum = Math.floor((Math.random() * 10));
-            chosenImages.push(imgDefinition[vm.randomNum], imgDefinition[(vm.randomNum + 1) % 10], imgDefinition[(vm.randomNum + 2) % 10]);
+            chosenImages.push(imgDefinition[vm.randomNum], imgDefinition[(vm.randomNum + 1) % 10], 
+            imgDefinition[(vm.randomNum + 2) % 10]);
+            vm.data = appHelper.initData(sectionsNum);
+            enableSection(0);
         }
 
-        function startTimer() {
-            timerCount = 0;;
-            timer = $interval(function () {
-                timerCount++;
-            }, 1000);
-        }
+        function enableSection(index){
+            if (index != 0)
+            {
+                $interval.cancel(vm.data[index - 1].timer);                
+                vm.data[index - 1].timer = undefined;
+                
+                if (index < sectionsNum)
+                {
+                    vm.data[index - 1].shown = false;
+                }
+            }
+
+            if (index < sectionsNum)
+            {
+                vm.data[index].shown = true;
+                appHelper.startTimer(index, vm.data[index]);
+            }
+        };
 
         function next() {
-            if (vm.img1) {
-                vm.img1 = false;
-                vm.img2 = true;
-            } else if (vm.img2) {
-                vm.img2 = false;
-                vm.img3 = true;
-            } else if (vm.img3) {
-                vm.img3 = false;
-                vm.finalCalc = true;
-            } else {
-                $interval.cancel(timer);
-                timer = undefined;
+            if (vm.currentIndex < sectionsNum)
+            {
+                vm.currentIndex++;
+                enableSection(vm.currentIndex);
 
-                var step = {
-                    time: timerCount,
-                    score: calculateScore()
-                };
+                if (vm.currentIndex == sectionsNum)
+                {
+                    var totalScore = calculateScore();
+                    var step = appHelper.getStepData(sectionsNum, vm.data, $stateParams.id, totalTime, totalScore);
 
-                appStorage.saveDecreased(vm.decrease);
-                appStorage.saveStep($stateParams.id, step, 4);
-                $state.go('step3', {
-                    id: $stateParams.id,
-                    state: 'ask'
-                });
+                    appStorage.saveDecreased(vm.data[vm.sections.calc.index].value);
+                    appStorage.saveStep($stateParams.id, step, 4);
+                    $state.go('step3', {
+                        id: $stateParams.id,
+                        state: 'ask'
+                    });
+                }
             }
         }
 
+        function getScoreForSection(index)
+        {
+            var answer = vm.data[index].value;
+            var real = chosenImages[index];
+            vm.data[index].score = appHelper.compareStrings(answer, real);
+            totalTime += vm.data[index].length;     
+
+            return vm.data[index].score;
+        }
+
         function calculateScore() {
-            console.log("time in seconds:", timerCount);
-            console.log("answer:", vm.answer.first, vm.answer.second, vm.answer.third);
-            console.log("correct-answer:", chosenImages[0], chosenImages[1], chosenImages[2]);
-            console.log(vm.decreasedNumber + " - 7 = ", vm.decrease);
-            return 0;
+            var totalScore = 0;
+            totalScore += getScoreForSection(vm.sections.first.index);
+            totalScore += getScoreForSection(vm.sections.second.index);
+            totalScore += getScoreForSection(vm.sections.third.index);
+            
+            vm.data[vm.sections.calc.index].score = appHelper.getScoreForCalc(vm.data[vm.sections.calc.index].value, 4);
+            totalScore += vm.data[vm.sections.calc.index].score;
+            totalTime += vm.data[3].length;
+
+            return totalScore;
         }
 
     }

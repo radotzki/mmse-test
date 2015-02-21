@@ -15,6 +15,7 @@
          'app.landing',
          'app.result',
          'app.storage',
+         'app.helper',
          'app.step1',
          'app.step2',
          'app.step3',

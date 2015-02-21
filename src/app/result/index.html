@@ -1,12 +1,22 @@
 <div class="jumbotron">
     <div class="container text-center">
-        <h1> Result for {{ vm.user.id }} </h1>
-        <h3> Score: {{ vm.user.totalScore }} | Time: {{ vm.user.totalTime }} seconds </h3>
+       <h2> Result for {{ vm.user.id }} </h2>
+        <h3> Score: {{ vm.user.totalScore | number : 2 }} | Time: {{ vm.user.totalTime }} seconds </h3>
+
+        <div ng-repeat="step in vm.user.steps" style="border:1px solid black; margin:5px">
+        	<h4 style="text-align: left;margin-left: 30px;">Step {{$index + 1}}</h4>
+        	<div ng-repeat="section in step.sections" class="stepsDisplay">
+        		<h5>Section {{$index + 1}}:</h5>
+        		Score: {{section.score | number : 2}} / {{ section.max }}
+        		</br>
+        		Time: {{section.time}} seconds
+        	</div>
+        </div>
 
         <section class="m-t-m" ng-if="vm.previousTests.length">
 	        <p style="margin-top: 30px;"> Previous tests: </p>
 	        <h4 ng-repeat="test in vm.previousTests | orderBy: '-startTime'">
-	         	Score: {{ test.totalScore }} | 
+	         	Score: {{ test.totalScore | number : 2 }} | 
 	         	Time: {{ test.totalTime }} seconds | 
 	         	from {{ test.startTime | date: 'medium' }} 
 	        </h4>
