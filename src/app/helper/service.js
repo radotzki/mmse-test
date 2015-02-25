@@ -77,6 +77,9 @@
             {
                 score = 0.25;
             }
+            else {
+                score = 0;
+            }
 
             return score;
         }
