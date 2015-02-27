@@ -36,35 +36,6 @@
             appHelper.enableSection(index, vm.data);
         }
 
-        // function initData(sectionsNum)
-        // {
-        //     var data = {};
-        //     for (var i = 0; i < sectionsNum; i++) {
-        //         data[i] = {disabled:false, length:0, score:0, shown:false};
-        //     };
-        //     return data;
-        // }
-
-        // function startTimer(index, section) {
-        //     var timer = $interval(function () {
-        //         section.length++;
-        //     }, 1000);
-
-        //     section.timer = timer;
-        // }
-
-        // function enableSection(index, data){
-        //     if (index != 0)
-        //     {
-        //         $interval.cancel(data[index - 1].timer);                
-        //         data[index - 1].timer = undefined;
-        //         data[index- 1].disabled = true;
-        //     }
-
-        //     data[index].shown = true;
-        //     startTimer(index, data[index]);
-        // };
-
         function next() {
             // Cancel calc timer
             $interval.cancel(vm.data[vm.sections.calc.index].timer);
@@ -164,8 +135,11 @@
             var indexOfChosen = vm.seasons.indexOf(chosen);
             var indexOfReal = vm.seasons.indexOf(realSeason);
 
+            if (indexOfChosen === -1){
+                vm.data[vm.sections.season.index].score = 0;   
+            }
             // Correct answer
-            if (indexOfChosen == indexOfReal)
+            else if (indexOfChosen == indexOfReal)
             {
                 vm.data[vm.sections.season.index].score++;
             }

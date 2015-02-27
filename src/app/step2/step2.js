@@ -38,7 +38,7 @@
             vm.decreasedNumber = appStorage.getDecreased();
             vm.data = appHelper.initData(sectionsNum);
             vm.data[vm.sections.county.index].correct = 'Israel';
-            vm.data[vm.sections.city.index].correct = 'Tel Aviv';
+            vm.data[vm.sections.city.index].correct = 'Rishon Lezion';
             vm.data[vm.sections.floor.index].correct = '2';
         }
 

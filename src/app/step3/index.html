@@ -22,7 +22,7 @@
             <div class="form-group" ng-show="vm.data[0].shown" style="margin-top:20px;">
                 <label>Noun #1</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="vm.data[0].value" ng-disabled="vm.data[0].disabled" required>
+                    <input type="text" class="form-control" ng-model="vm.data[0].value" ng-disabled="vm.data[0].disabled">
                     <span class="input-group-btn">
                         <button class="btn btn-default" ng-click="vm.enableSection(1)" type="button" ng-disabled="vm.data[0].disabled">Next</button>
                     </span>
@@ -32,7 +32,7 @@
             <div class="form-group" ng-show="vm.data[1].shown">
                 <label>Noun #2</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="vm.data[1].value" ng-disabled="vm.data[1].disabled" required>
+                    <input type="text" class="form-control" ng-model="vm.data[1].value" ng-disabled="vm.data[1].disabled">
                     <span class="input-group-btn">
                         <button class="btn btn-default" ng-click="vm.enableSection(2)" type="button" ng-disabled="vm.data[1].disabled">Next</button>
                     </span>
@@ -42,7 +42,7 @@
             <div class="form-group" ng-show="vm.data[2].shown">
                 <label>Noun #3</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="vm.data[2].value" ng-disabled="vm.data[2].disabled" required>
+                    <input type="text" class="form-control" ng-model="vm.data[2].value" ng-disabled="vm.data[2].disabled">
                     <span class="input-group-btn">
                         <button class="btn btn-default" ng-click="vm.enableSection(3); vm.showNext = true;" type="button" ng-disabled="vm.data[2].disabled">Next</button>
                     </span>
@@ -51,7 +51,7 @@
 
             <div class="form-group" ng-show="vm.data[3].shown">
                 <label>{{vm.decreasedNumber}} - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.data[3].value" ng-disabled="vm.data[3].disabled" required>
+                <input type="number" class="form-control" ng-model="vm.data[3].value" ng-disabled="vm.data[3].disabled">
             </div>
 
             <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-show="vm.showNext" ng-disabled="myForm.$invalid">NEXT</a>

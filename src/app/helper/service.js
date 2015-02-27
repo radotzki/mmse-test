@@ -57,6 +57,7 @@
         function getScoreForCalc(value, stepIndex){
             var score;
             var realCalcResult = 93;
+            value = value ? value : 0;
 
             if (stepIndex != 1)
             {
@@ -101,7 +102,10 @@
         {
             var score = 0;
 
-            if (first == second){
+            if (!first || !second) {
+                score = 0;
+            }
+            else if (first == second){
                 score = 1;
             }
             else
@@ -199,8 +203,11 @@
             var minuteScore = 0;
             var didMixHoursAndMinutes = false;
 
+            if (!answer || !real) {
+                hourScore = 0;
+            }
             // The corrent answer
-            if (answer.hour == real.hour)
+            else if (answer.hour == real.hour)
             {
                 hourScore = 1;
             }
@@ -228,8 +235,11 @@
                 }
             }
             
+            if (!answer || !real) {
+                minuteScore = 0;
+            }
             // The corrent answer
-            if (answer.minute == real.minute)
+            else if (answer.minute == real.minute)
             {
                 minuteScore = 1;
             }

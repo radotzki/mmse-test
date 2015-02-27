@@ -8,7 +8,7 @@
                 <p style="margin-top: 30px">What is the time in the text above? 24H</p>
 
                 <div class="form-group">
-                    <select class="form-control" ng-model="vm.data[0].value.hour" ng-disabled="vm.data[0].disabled" required>
+                    <select class="form-control" ng-model="vm.data[0].value.hour" ng-disabled="vm.data[0].disabled">
                         <option value="00">00</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -37,7 +37,7 @@
                 </div>
                 :
                 <div class="form-group">
-                    <select class="form-control" ng-model="vm.data[0].value.minute" ng-disabled="vm.data[0].disabled" required>
+                    <select class="form-control" ng-model="vm.data[0].value.minute" ng-disabled="vm.data[0].disabled">
                         <option value="00">00</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -106,7 +106,7 @@
 
             <div class="form-group" ng-show="vm.data[1].shown" style="display: block; margin: 15px auto;">
                 <label>{{vm.decreasedNumber}} - 7 = </label>
-                <input type="number" class="form-control" ng-model="vm.data[1].value" ng-disabled="vm.data[1].disabled" required>
+                <input type="number" class="form-control" ng-model="vm.data[1].value" ng-disabled="vm.data[1].disabled">
             </div>
 
             <a class="btn btn-primary btn-block" ng-click="vm.next()" ng-show="vm.showNext" ng-disabled="myForm.$invalid">NEXT</a>

@@ -62,6 +62,7 @@
         }
 
         function saveDecreased(number) {
+            number = number ? number : 0;
             localStorage.setItem('decreasedNumber', number);
         }
 
